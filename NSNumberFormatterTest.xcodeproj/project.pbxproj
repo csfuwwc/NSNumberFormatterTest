@@ -15,6 +15,7 @@
 		CBA60F0D1FD92EE30041FB39 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA60F0C1FD92EE30041FB39 /* main.m */; };
 		CBA60F151FD9300D0041FB39 /* UITextField+More.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA60F141FD9300D0041FB39 /* UITextField+More.m */; };
 		CBA60F1B1FD939120041FB39 /* NSString+More.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA60F1A1FD939120041FB39 /* NSString+More.m */; };
+		CBA60F1D1FDA27F50041FB39 /* demo.gif in Resources */ = {isa = PBXBuildFile; fileRef = CBA60F1C1FDA27F50041FB39 /* demo.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		CBA60F141FD9300D0041FB39 /* UITextField+More.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITextField+More.m"; sourceTree = "<group>"; };
 		CBA60F191FD939120041FB39 /* NSString+More.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+More.h"; sourceTree = "<group>"; };
 		CBA60F1A1FD939120041FB39 /* NSString+More.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+More.m"; sourceTree = "<group>"; };
+		CBA60F1C1FDA27F50041FB39 /* demo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = demo.gif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 				CBA60F141FD9300D0041FB39 /* UITextField+More.m */,
 				CBA60F191FD939120041FB39 /* NSString+More.h */,
 				CBA60F1A1FD939120041FB39 /* NSString+More.m */,
+				CBA60F1C1FDA27F50041FB39 /* demo.gif */,
 				CBA60F031FD92EE30041FB39 /* Main.storyboard */,
 				CBA60F061FD92EE30041FB39 /* Assets.xcassets */,
 				CBA60F081FD92EE30041FB39 /* LaunchScreen.storyboard */,
@@ -142,6 +145,7 @@
 				CBA60F0A1FD92EE30041FB39 /* LaunchScreen.storyboard in Resources */,
 				CBA60F071FD92EE30041FB39 /* Assets.xcassets in Resources */,
 				CBA60F051FD92EE30041FB39 /* Main.storyboard in Resources */,
+				CBA60F1D1FDA27F50041FB39 /* demo.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

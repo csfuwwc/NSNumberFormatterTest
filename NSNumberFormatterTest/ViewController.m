@@ -28,7 +28,7 @@
     [super viewDidLoad];
     
     
-    //为textfield设置对应style即可
+    //为textfield设置对应style即可实现 格式化输入字符-格式化
     self.inputTextField.style = UIInputTextFieldStyle_Phone;
     
 }
