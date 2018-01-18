@@ -11,6 +11,8 @@
 
 @interface NSString(More)
 
-- (NSString *)PhoneFormatter;
+- (NSString *)phoneFormatter;
+
+- (NSString *)banCardFormatter;
 
 @end

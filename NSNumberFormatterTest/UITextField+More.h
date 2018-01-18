@@ -12,6 +12,8 @@ typedef void(^EditBlock)(UITextField * tf);
 
 typedef enum : NSUInteger {
     
+    UIInputTextFieldStyle_None = 0,//无格式限制
+    
     UIInputTextFieldStyle_Phone = 1, //手机号
     
     UIInputTextFieldStyle_BankCard = 2, //银行卡
@@ -21,8 +23,14 @@ typedef enum : NSUInteger {
 @interface UITextField (More)<UITextFieldDelegate>
 
 
-
+//格式-手机号/银行卡/金额等等
 @property (assign, nonatomic)UIInputTextFieldStyle style;
+
+//最大输入位数
+@property (assign, nonatomic)NSInteger maxInputLength;
+
+//最终字符
+@property (assign, nonatomic)NSString * resultString;
 
 
 /**

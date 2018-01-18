@@ -29,15 +29,15 @@
     
     
     //为textfield设置对应style即可实现 格式化输入字符-格式化
-    self.inputTextField.style = UIInputTextFieldStyle_Phone;
-    
+    self.inputTextField.style = UIInputTextFieldStyle_BankCard;
+        
 }
 
 - (IBAction)fonish:(id)sender
 {
     [self.normalTextField resignFirstResponder];
     
-    self.resultLab.text = [self.normalTextField.text PhoneFormatter];
+    self.resultLab.text = [self.normalTextField.text phoneFormatter];
     
 }
 

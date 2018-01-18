@@ -11,6 +11,25 @@
 
 @implementation UITextField (More)
 
+
+//设置最大输入位数
+#pragma mark - UITextFieldInputLength
+
+static const char * TextFieldMaxInputLengthKey = "TextFieldMaxInputLengthKey";
+
+- (void)setMaxInputLength:(NSInteger)maxInputLength
+{
+    objc_setAssociatedObject(self, TextFieldMaxInputLengthKey, @(maxInputLength), OBJC_ASSOCIATION_ASSIGN);
+    
+    self.delegate = self;
+}
+
+- (NSInteger)maxInputLength
+{
+    return [objc_getAssociatedObject(self, TextFieldMaxInputLengthKey) integerValue];
+}
+
+//设置输入字符格式
 #pragma mark - UITextFieldInputSytle
 
 static const char * TextFieldStyleKey = "TextFieldStyleKey";
@@ -19,10 +38,37 @@ static const char * TextFieldStyleKey = "TextFieldStyleKey";
 {
     objc_setAssociatedObject(self, TextFieldStyleKey, @(style), OBJC_ASSOCIATION_ASSIGN);
     
-    self.delegate  = self;
     
-    //检测输入-格式化
-    [self formatterInputString];
+    switch (style)
+    {
+        case UIInputTextFieldStyle_Phone:
+        {
+            //手机号码最多11位
+            self.maxInputLength = 11;
+            
+            //检测输入-格式化
+            [self formatterInputString];
+        }
+            break;
+        case UIInputTextFieldStyle_BankCard:
+        {
+            //银行卡号最多19位 <longlong最大表示-9223372036854775807>
+            self.maxInputLength = 19;
+            
+            //检测输入-格式化
+            [self formatterInputString];
+        }
+            break;
+            
+        default:
+        {
+            //默认不限制位数
+            self.maxInputLength = MAXFLOAT;
+        }
+            break;
+    }
+    
+
 }
 
 - (UIInputTextFieldStyle)style
@@ -44,25 +90,50 @@ static const char * TextFieldStyleKey = "TextFieldStyleKey";
             return;
         }
         
-        NSNumber * number = [NSNumber numberWithInteger:[string integerValue]];
-        NSNumberFormatter * formatter = [NSNumberFormatter new];
-        
-        //设置分隔符
-        [formatter setGroupingSeparator:@" "];
-        //设置使用组分割
-        formatter.usesGroupingSeparator = YES;
-        
-        //设置首个组长度<从右向左>
-        formatter.groupingSize = ([string length]-3)%4>0?([string length]-3)%4:4;
-        //设置第二个组长度
-        formatter.secondaryGroupingSize = [string length]>7?4:3;
-        
+        NSNumber * number = [NSNumber numberWithInteger:[string longLongValue]];
+
         //获取格式化后的字符
-        tf.text  = [formatter stringFromNumber:number];
+        tf.text  = [[self formatterWithString:string] stringFromNumber:number];
         
         
     }];
 }
+
+- (NSNumberFormatter *)formatterWithString:(NSString *)string
+{
+    NSNumberFormatter * formatter = [NSNumberFormatter new];
+    
+    //设置分隔符
+    [formatter setGroupingSeparator:@" "];
+    //设置使用组分割
+    formatter.usesGroupingSeparator = YES;
+    
+    switch (self.style)
+    {
+        case UIInputTextFieldStyle_Phone:
+        {
+            //设置首个组长度<从右向左>
+            formatter.groupingSize = ([string length]-3)%4>0?([string length]-3)%4:4;
+            //设置第二个组长度
+            formatter.secondaryGroupingSize = [string length]>7?4:3;
+        }
+            break;
+        case UIInputTextFieldStyle_BankCard:
+        {
+            //设置首个组长度<从右向左>
+            formatter.groupingSize = ([string length]-4)%4>0?([string length]-4)%4:4;
+            //设置第二个组长度
+            formatter.secondaryGroupingSize = 4;
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
+    return formatter;
+}
+
 
 #pragma mark - UIControlEventBlock
 
@@ -95,38 +166,29 @@ static const char * TextFieldMoreKey = "TextFieldMoreKey";
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    if (self.style != 0 && ![string isEqualToString:@""])
+    if (![string isEqualToString:@""])
     {
         
-        NSString * string = [textField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+        NSString * currentString = self.style!=UIInputTextFieldStyle_None?[textField.text stringByReplacingOccurrencesOfString:@" " withString:@""]:textField.text;
 
-        
-        switch (self.style)
+        if ([currentString length]>= self.maxInputLength)
         {
-            case UIInputTextFieldStyle_Phone:
-            {
-                if ([string length]>= 11)
-                {
-                    return NO;
-                }
-            }
-                break;
-             case UIInputTextFieldStyle_BankCard:
-            {
-                if ([string length]>= 16)
-                {
-                    return NO;
-                }
-            }
-                break;
-            default:
-                break;
+            return NO;
         }
     }
     
-
-    
     return YES;
+}
+
+//最终字符
+- (NSString *)resultString
+{
+    if (self.style != UIInputTextFieldStyle_None)
+    {
+        return [self.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+    }
+    
+    return self.text;
 }
 
 
