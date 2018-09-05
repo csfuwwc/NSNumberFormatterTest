@@ -90,7 +90,7 @@ static const char * TextFieldStyleKey = "TextFieldStyleKey";
             return;
         }
         
-        NSNumber * number = [NSNumber numberWithInteger:[string longLongValue]];
+        NSDecimalNumber * number = [NSDecimalNumber decimalNumberWithString:string];
 
         //获取格式化后的字符
         tf.text  = [[self formatterWithString:string] stringFromNumber:number];
@@ -120,6 +120,7 @@ static const char * TextFieldStyleKey = "TextFieldStyleKey";
             break;
         case UIInputTextFieldStyle_BankCard:
         {
+            
             //设置首个组长度<从右向左>
             formatter.groupingSize = ([string length]-4)%4>0?([string length]-4)%4:4;
             //设置第二个组长度

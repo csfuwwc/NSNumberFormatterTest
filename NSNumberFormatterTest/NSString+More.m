@@ -12,8 +12,8 @@
 
 - (NSString *)phoneFormatter
 {
-    NSNumber * number = [NSNumber numberWithInteger:[self integerValue]];
-    
+    NSDecimalNumber * number = [NSDecimalNumber decimalNumberWithString:self];
+
     NSNumberFormatter * formatter = [NSNumberFormatter new];
     
     /*
@@ -40,7 +40,7 @@
 
 - (NSString *)banCardFormatter
 {
-    NSNumber * number = [NSNumber numberWithInteger:[self integerValue]];
+    NSDecimalNumber * number = [NSDecimalNumber decimalNumberWithString:self];
     
     NSNumberFormatter * formatter = [NSNumberFormatter new];
     
