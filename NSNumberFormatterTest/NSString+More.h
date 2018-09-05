@@ -11,8 +11,10 @@
 
 @interface NSString(More)
 
+//转换为手机号格式  xxx xxxx xxxx
 - (NSString *)phoneFormatter;
 
+//转换为银行卡格式 xxxx xxxx xxxx xxxx xxx
 - (NSString *)banCardFormatter;
 
 @end
