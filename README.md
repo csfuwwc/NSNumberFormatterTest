@@ -1,8 +1,7 @@
 # NSNumberFormatterTest
 手机号、银行卡、输入/展示
 
-###模式一：输入时格式控制
-
+### 模式一：输入时格式控制
 ![image](https://github.com/csfuwwc/NSNumberFormatterTest/blob/master/NSNumberFormatterTest/demo.gif)
 
 
@@ -19,10 +18,7 @@ typedef enum : NSUInteger {
     
 } UIInputTextFieldStyle;
 
-
-
-###模式二：展示时格式控制
-
+### 模式二：展示时格式控制
 例如：
     self.resultLab.text = [self.normalTextField.text phoneFormatter];
 
