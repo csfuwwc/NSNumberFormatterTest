@@ -90,11 +90,29 @@ static const char * TextFieldStyleKey = "TextFieldStyleKey";
             return;
         }
         
-        NSDecimalNumber * number = [NSDecimalNumber decimalNumberWithString:string];
-
-        //获取格式化后的字符
-        tf.text  = [[self formatterWithString:string] stringFromNumber:number];
         
+        NSDecimalNumber * number = [[NSDecimalNumber alloc] initWithString:string];
+        
+        NSNumberFormatter * formatter = [self formatterWithString:string];
+        
+        //如果string以0开头
+        if ([string hasPrefix:@"0"] && [number stringValue].length != string.length)
+        {
+            NSString *prefixStr = [string substringToIndex:[string length]-[number stringValue].length];
+            
+            
+            NSMutableString *tempStr = [prefixStr mutableCopy];
+                            
+            for (NSInteger i = 4; i <= prefixStr.length; i += 4)
+            {
+                [tempStr insertString:@" " atIndex:(i+(i-1)/4)];
+            }
+                            
+            formatter.positivePrefix = tempStr;
+        }
+        
+        //获取格式化后的字符
+        tf.text  = [formatter stringFromNumber:number];
         
     }];
 }

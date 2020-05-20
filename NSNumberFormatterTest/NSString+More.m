@@ -54,6 +54,21 @@
     //设置第二个组长度
     formatter.secondaryGroupingSize = 4;
     
+    //如果string以0开头
+    if ([self hasPrefix:@"0"] && [number stringValue].length != self.length)
+    {
+        NSString *prefixStr = [self substringToIndex:[self length]-[number stringValue].length];
+        
+        
+        NSMutableString *tempStr = [prefixStr mutableCopy];
+                        
+        for (NSInteger i = 4; i <= prefixStr.length; i += 4)
+        {
+            [tempStr insertString:@" " atIndex:(i+(i-1)/4)];
+        }
+                        
+        formatter.positivePrefix = tempStr;
+    }
     
     return [formatter stringFromNumber:number];
 }
